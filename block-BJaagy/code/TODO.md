@@ -1,6 +1,33 @@
 1. Create a function by your choice that accepts a callback function.
 
+```js
+
+function addNumbers(n, cb){
+  return cb(n);
+}
+
+addNumbers(21, function(n) {
+  n = n * 5;
+  return n;
+});
+
+```
+
 2. Create a function by you choice that returns a function reference.
+
+```js
+
+function divideNumbers(n, cb) {
+  return cb(n);
+}
+
+function divide(n){
+  return n / 5;
+}
+
+divideNumbers(100, divide);
+
+```
 
 3. Create a higher order function called `map` that takes two inputs:
    - An array of numbers/string/boolean etc
@@ -15,6 +42,15 @@ Have `map` return a new array filled with values that are the result of the 'cal
 function multiplyByTwo(n) {
   return n * 2;
 }
+
+function map(arr, cb){
+  let newArr = [];
+  for(let i = 0; i < arr.length; i++){
+    newArr.push(cb(arr[i]));
+  }
+  return newArr;
+}
+
 map([1, 2, 3, 4, 5], multiplyByTwo); //-> [2,4,6,8,10]
 multiplyByTwo(1); //-> 2
 multiplyByTwo(2); //-> 4
@@ -24,6 +60,14 @@ multiplyByTwo(2); //-> 4
 
 ```js
 // Your code goes here
+
+function forEach(arr, cb){
+  newArr = [];
+  for(let i = 0; i < arr.length; i++){
+    newArr.push(cb(arr[i]));
+  }
+  return newArr;
+}
 
 // Test Your Code
 let alphabet = '';
@@ -38,6 +82,17 @@ console.log(alphabet); //prints 'abcd'
 
 ```js
 // Test Your Code
+
+function filter(arr, cb) {
+  let newArr = [];
+  for(let i = 0; i < arr.length; i++){
+    if(cb(arr[i])){
+        newArr.push(arr[i]);
+    }
+    
+  }
+  return newArr;
+}
 
 var numbers = [1, 3, 5, 4, 7, 89, 234, 20];
 let even = filter(numbers, function (n) {
