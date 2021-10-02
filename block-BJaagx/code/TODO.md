@@ -18,6 +18,9 @@ function multiplyBy5(n) {
 }
 let numbersAddedFive = multiplyArrayByN(marks, addFive);
 let numbersMultipliedBy5 = multiplyArrayByN(marks, multiplyBy5);
+
+// Here multiplyArrayByN is a higher order function and addFive and multiplyBy5 is the call back function 
+
 ```
 
 2. Create the execution context diagram of the above code snippet
@@ -26,8 +29,8 @@ let numbersMultipliedBy5 = multiplyArrayByN(marks, multiplyBy5);
 
 ```js
 function operation(n, opFn) {
-  // your code goes her
-}
+  opFn = opFn(n);
+  return opFn;
 // TEST
 console.log(
   operation(21, function (n) {
@@ -47,7 +50,8 @@ console.log(
 
 ```js
 function operation(str, opFn) {
-  // your code goes her
+  opFn = opFn(str);
+  return opFn;
 }
 // TEST
 console.log(
