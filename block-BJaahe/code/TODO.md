@@ -3,20 +3,38 @@
 1. Write a function, `outer` that takes an input `string`. Inside the function `outer` define another function expression named `sayHello` which alerts the `input`. `sayHello` should be call immediately after it is defined.
 
 ```js
-// Your code goes here
+function outer(string){
+  function sayHello(){
+    alert(string);
+  }
+  sayHello();
+}
+outer("Say Hello");
 ```
 
 2. Write a function `delay` that accepts two arguments, a callback and the wait for the time in milliseconds (1000 ms is 1 second). `delay` should return a function that, when invoked waits for the specified amount of time before executing. (Use setTimeout)
 
 ```js
-// Your code goes here
+function delay(cb, time){
+ return setTimeout(cb, time);
+}
+
+function sayHi(){
+ console.log("Hi");
+}
+delay(sayHi, 5000);
+
 ```
 
 3. Write a function with a closure. The first function should only take one argument, someone's last name, and return the inner function. The returned `inner` function should take one more argument, someone's first name. When inner function when called it should console.log both the first name and the last name with a space.
 
 ```js
-function lastName() {
-  //  Your code goes here
+function lastName(lName) {
+  var lname = lName;
+  return function inner(fname){
+     console.log(fname + lname);
+  }
+  
 }
 
 let lastNameLee = lastName('lee'); // logs nothing
@@ -33,8 +51,21 @@ lastNameLee('Lynne'); //logs 'Lynne Lee'
 4. Create a `storyWriter` function that returns an object with two methods. One method, `addWords` adds a word to your story and returns the story while the other one, `erase`, resets the story back to an empty string. Here is an implementation:
 
 ```js
+
 function storyWriter() {
-  // Your code goes here
+  var para = "";
+  var final = "";
+  function changeBy(str){
+   return final += str;
+  }
+  return {
+    addWords: function (str) {
+      return changeBy(str);
+    },
+    erase: function(){
+      return para;
+    }
+  }
 }
 
 // Test
@@ -54,11 +85,14 @@ storyOfMyLife.erase(); // ''
 When `forEach` function is called it returns another function. When the returned function is called it returns the element from the array at specific index. Every time you call the returned function the value of index should increment.
 
 ```js
-function forEach() {
-  // Your code goes here
+function forEach(arr) {
+  var index = 0;
+   return function next(){
+     return index++;
+      
+  }
 }
-
-let next = [1, 2, 3, 4, 5];
+let next = [3, 2, 8, 4, 10];
 next(); // 1
 next(); // 2
 next(); // 3
@@ -72,7 +106,10 @@ The returned function accepts a string `prefix` and returns `prefix` and `title`
 
 ```js
 function addDesignation(title) {
-  // your code goes here
+  var title = title;
+  return function wolf(prefix){
+    console.log(prefix + "" + title);
+  }
 }
 
 let sales = addDesignation('Salesman');
@@ -90,8 +127,23 @@ manager('Head'); // Head Manager
 - `current` will return the current salary returns the updated salary
 
 ```js
-function changeSalary() {
-  // Your code goes here
+function changeSalary(currentSalary) {
+  var currentSalary = currentSalary;
+  function changeBy(val){
+    currentSalary += val;
+    return currentSalary;
+  }
+  return {
+    raise: function(){
+      return changeBy(+500);
+    },
+    lower: function(){
+      return changeBy(-500);
+    },
+    current: function(){
+      return currentSalary;
+    }
+  }
 }
 
 let sam = changeSalary(2000);
@@ -108,7 +160,23 @@ arya.lower(); // 3500
 - `setLastName`: accepts a parameter last name using which updates the firstName and return the updated full name
 
 ```js
-// Your code goes here
+function nameFactory(firstName, lastName){
+  var firstName = firstName;
+  var lastName = lastName;
+  return {
+    getFullName: function(){
+      return firstName + lastName;
+    },
+    setFirstName: function(fName){
+      firstName = fName;
+      return firstName;
+    },
+    setLastName: function(lName){
+      lastName = firstName + lName;
+      return lastName;
+    }
+  }
+}
 
 let arya = nameFactory('Arya', 'Stark');
 arya.getFullName(); // "Arya Stark"
@@ -121,8 +189,14 @@ arya.setLastName('Lannister'); // "Jon Lannister"
 The returned function accepts a string (children) and returns the children with the tag you passed.
 
 ```js
-function createTag() {
-  // your code goes here
+function createTag(tag) {
+  var tag = tag;
+  return function(str){
+    document.createElement('tag');
+    tag.innerHTML = str;
+    return str;
+  }
+  return tag;
 }
 
 let bold = createTag('b');
